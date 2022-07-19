@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faCircleQuestion, faCircleXmark, faEarthAsia, faEllipsisVertical, faKeyboard, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import Button from '~/components/Buttons';
 import classNames from 'classnames/bind';
@@ -10,9 +10,39 @@ import styles from './Header.module.scss'
 import images from '~/assets/images';
 import { Wrapper as PopperWrapper } from '~/components/Popper'
 import AccountItem from '../AccountItem';
+import Menu from '~/components/Popper/Menu';
 
 
 const cx = classNames.bind(styles);
+
+const MENU_ITEM = [
+    {
+        icon: <FontAwesomeIcon icon={faEarthAsia} />,
+        title: 'English',
+        children: {
+            title: 'Language',
+            data: [
+                {
+                    code: 'en',
+                    title: 'English'
+                },
+                {
+                    code: 'vi',
+                    title: 'Tiếng việt'
+                }
+            ]
+        }
+    },
+    {
+        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+        title: 'Feedback and Help',
+        to: '/feedback'
+    },
+    {
+        icon: <FontAwesomeIcon icon={faKeyboard} />,
+        title: 'Keyboard Shortcuts'
+    }
+]
 function Header() {
 
     const [searchResult, setSearchResult] = useState([])
@@ -21,13 +51,17 @@ function Header() {
             setSearchResult([1, 2, 3])
         }, 2000)
     }, [])
+
+    const handleMenuChange = (menuItem) => {
+        console.log(menuItem);
+    }
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <img src={images.logo} alt='logo Tiktok' />
                 <Tippy
                     interactive={true}
-                    visible={searchResult.length > 0}
+                    // visible={searchResult}
                     render={attrs => (
                         <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                             <PopperWrapper>
@@ -54,6 +88,11 @@ function Header() {
                 <div className={cx('action')}>
                     <Button text> Upload</Button>
                     <Button primary> Log In</Button>
+                    <Menu items={MENU_ITEM} onChange={handleMenuChange}>
+                        <button className={cx('more-btn')}>
+                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                        </button>
+                    </Menu>
                 </div>
             </div>
         </header >
