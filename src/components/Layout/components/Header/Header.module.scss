@@ -92,12 +92,34 @@
     }
 }
 
+//action
+.action {
+    display: flex;
+    align-items: center;
+}
+
+.action-btn {
+    font-size: 2rem;
+    background-color: transparent;
+    padding: 4px 10px;
+    cursor: pointer;
+}
+
 .more-btn {
     font-size: 2rem;
     margin-left: 28px;
     padding: 4px 8px;
     background-color: transparent;
     cursor: pointer;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    margin-left: 12px;
 }
 
 //menu item
